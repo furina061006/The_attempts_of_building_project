@@ -1,0 +1,33 @@
+# 这个模板专门用于引导用户 报告 OpenCV 官方文档（https://docs.opencv.org/）中的问题，例如：
+# 文档内容错误、过时
+# 示例代码不工作
+# API 说明不清楚
+# 链接失效
+# 多版本（4.x / 5.x）文档混乱
+# 它把“文档反馈”从普通 Issue 中分离出来，打上 category: documentation 标签，便于维护者分类处理。
+name: Documentation
+description: Report an issue related to https://docs.opencv.org/
+labels: ["category: documentation"]
+
+body:
+- type: markdown
+  attributes:
+    value: >
+      #### Thank you for contributing! Before submitting a doc issue, please make sure it has no duplicate by searching through [the existing and past issues](https://github.com/opencv/opencv/issues?page=1&q=is%3Aissue+sort%3Acreated-desc)
+
+- type: textarea
+  attributes:
+    label: Describe the doc issue
+    description: >
+      Please provide a clear and concise description of what content in https://docs.opencv.org/ is an issue. Note that there are multiple active branches, such as 4.x and 5.x, so please specify the branch with the problem.
+    placeholder: |
+      A clear and concise description of what content in https://docs.opencv.org/ is an issue.
+
+      Link to the doc: https://docs.opencv.org/4.x/d3/d63/classcv_1_1Mat.html
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: Fix suggestion
+    description: >
+      Tell us how we could improve the documentation in this regard.

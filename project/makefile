@@ -1,5 +1,6 @@
 OUT?=./builds
 TARGET?=main
+MD?=learning_insight.md
 
 all: build
 	@gcc $(OUT)/*.o -o $(OUT)/$(TARGET)

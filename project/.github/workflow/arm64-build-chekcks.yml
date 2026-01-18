@@ -1,0 +1,18 @@
+# 用于在 x86_64 主机上交叉编译 OpenCV 到 ARM64（aarch64）架构，并验证构建是否成功。
+# 简单说：它确保 OpenCV 能在 ARM64 设备（如树莓派、AWS Graviton、Apple Silicon Mac、安卓手机等）上正确编译。
+
+# 为什么需要这个工作流？
+# OpenCV 官方希望支持多种硬件平台，包括：
+# 树莓派（Raspberry Pi）
+# NVIDIA Jetson（Tegra）
+# AWS Graviton 云服务器
+# 安卓设备（ARM64）
+# 但 GitHub Actions 的默认 runner 是 x86_64 机器，无法直接编译 ARM64 二进制。
+# → 解决方案：交叉编译（在 x86 机器上生成 ARM64 可执行文件）
+
+#工作流关键步骤
+# 1. 检出代码
+# 2. 安装 ARM64 交叉编译工具链和依赖
+# 3. 获取额外模块（opencv_contrib）
+# 4. CMake 配置（指定交叉编译工具链）
+# 5. 执行编译(只编译不测试)

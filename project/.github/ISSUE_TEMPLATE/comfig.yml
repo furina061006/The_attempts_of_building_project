@@ -1,0 +1,14 @@
+# 这是一个 GitHub 仓库专用的配置文件，用于自定义 Issues（议题）页面的行为和引导信息。
+# 它通常放在仓库根目录下的 .github/ 文件夹中（即路径为 .github/config.yml）。
+
+# 控制是否允许用户提交“空白 Issue”（即不使用任何模板，直接写自由文本的 Issue）。
+# 设为 true 表示：允许用户跳过模板，直接创建普通 Issue。
+# 如果设为 false，则用户只能通过你提供的模板（如 Bug Report、Feature Request）来提 Issue。
+
+# 减少“非 bug 类 Issue”（比如“怎么用 cv2.findContours？”这类问题）涌入 GitHub Issues，
+# 因为 GitHub Issues 应该用于 bug 报告、功能请求、开发讨论，而不是问答。
+blank_issues_enabled: true
+contact_links:
+  - name: Questions
+    url: https://forum.opencv.org/
+    about: Ask questions and discuss with OpenCV community members

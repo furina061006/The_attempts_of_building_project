@@ -20,3 +20,4 @@
 
 5 directories, 12 files
 这几天会继续跟进，尝试把此项目优化完善
+注：本项目模板学习https://github.com/opencv/opencv.git 的工程化思想

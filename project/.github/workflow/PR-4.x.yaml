@@ -1,0 +1,11 @@
+# 用于 GitHub Actions 的主拉取请求（Pull Request）CI 工作流配置文件。它的核心作用是：
+# 在有人向 OpenCV 的 4.x 分支提交 Pull Request（PR）时，自动在多个平台和配置下构建、测试代码，确保改动不会破坏现有功能。
+
+# 这个文件本身不包含具体构建步骤，而是通过 jobs.<name>.uses 调用 OpenCV 统一维护的 CI 工作流模板（位于 opencv/ci-gha-workflow 仓库）。
+# 这是大型项目管理复杂 CI 的最佳实践——避免重复、集中维护。
+
+# PR = Pull Request（拉取请求）
+# 简单说：PR 就是你“交作业”的方式，让项目团队决定要不要采纳你的代码。
+
+# CI = Continuous Integration（持续集成）
+# 简单说：CI 就是“自动阅卷老师”，你一交 PR（作业），它就立刻批改，告诉你哪里错了。

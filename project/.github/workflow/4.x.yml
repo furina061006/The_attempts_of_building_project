@@ -1,0 +1,28 @@
+# workflow是GitHub Actions 的工作流配置文件，
+# 而4.x.yml用于在 OpenCV 项目的 4.x 分支上自动执行持续集成（CI）任务。具体来说，它定义了一个名为 “CodeQL” 的安全分析流程。
+# 用途：GitHub Actions 自动化工作流
+# 触发条件：每天凌晨 3 点（UTC） + 手动触发
+# 核心功能：对 4.x 分支运行 CodeQL 代码扫描（静态分析，检测安全漏洞和代码缺陷）
+name: 4.x           #工作流名称，在 GitHub Actions 页面显示为 “4.x”
+
+on:
+  schedule:
+    - cron: '0 3 * * *'     # 每天 UTC 时间 03:00 自动运行
+  workflow_dispatch:        # 允许手动触发（通过 GitHub Web UI）
+
+jobs:
+  CodeQL:                   #定义一个名为 CodeQL 的任务（job）
+    uses: opencv/ci-gha-workflow/.github/workflows/OCV-CodeQL.yaml@main #复用另一个仓库中的工作流模板：
+# 来源：opencv/ci-gha-workflow 仓库
+# 路径：.github/workflows/OCV-CodeQL.yaml
+# 分支：@main
+    with:
+      target_branch: '4.x'
+      workflow_branch: main
+
+# 实际效果
+# 在 OpenCV 的 Actions 页面 会看到名为 “4.x” 的工作流
+# 每次运行后，GitHub 会：
+# 显示 CodeQL 扫描结果
+# 如果发现高危问题，可能阻塞 PR 合并（取决于配置）
+# 在 Security → Code scanning alerts 中汇总问题
