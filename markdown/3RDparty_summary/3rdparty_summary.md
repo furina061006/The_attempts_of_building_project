@@ -17,7 +17,13 @@
     - [What is FastCV?](#what-is-fastcv)
     - [Role of `fastcv.cmake` in OpenCV](#role-of-fastcvcmake-in-opencv)
     - [Summary](#summary-1)
-  - [](#)
+  - [Ffmpeg](#ffmpeg)
+    - [What's FFmpeg?](#whats-ffmpeg)
+    - [File-by-File Breakdown](#file-by-file-breakdown)
+      - [`ffmpeg.cmake`](#ffmpegcmake)
+      - [`ffmpeg-download.ps1.in`](#ffmpeg-downloadps1in)
+      - [`license.txt`](#licensetxt)
+      - [`readme.txt`](#readmetxt)
 
 ## Cpufeatures
 ```bash
@@ -146,4 +152,55 @@ This CMake file **serves as a bridge between OpenCV and the FastCV SDK**. Its ma
 | Conditional Compilation | Gates FastCV usage behind `HAVE_FASTCV` macro |
 | Target Platform | Snapdragon-based Android/embedded devices |
 
-## 
+## Ffmpeg
+```bash
+.
+├── ffmpeg-download.ps1.in
+├── ffmpeg.cmake
+├── license.txt
+└── readme.txt
+
+0 directories, 4 files
+```
+these files are part of OpenCV’s built-in mechanism to **automatically download and integrate precompiled FFmpeg binaries on Windows.** This ensures that OpenCV’s `VideoCapture` and `VideoWriter` work out-of-the-box with popular video formats (like MP4, AVI, H.264) **without requiring users to manually build or install FFmpeg.**
+### What's FFmpeg?
+FFmpeg is a free, open-source software project that provides a powerful set of tools and libraries for handling audio, video, and multimedia data.
+In simple terms, FFmpeg can:
+- Play, record, convert, stream, edit, and analyze audio and video files.
+- Support hundreds of formats (MP4, AVI, MOV, MKV, FLV, WebM, etc.)
+- Work with dozens of codecs (H.264, H.265/HEVC, VP9, AV1, MPEG-4, AAC, MP3, etc.)
+- Resize, crop, filter, overlay text, extract frames, change speed, and much more.
+
+### File-by-File Breakdown
+#### `ffmpeg.cmake`
+Core CMake script that orchestrates FFmpeg integration.
+To be simple, it dominates this integration activities.
+
+#### `ffmpeg-download.ps1.in`
+It is PowerShell script template (`.in` = input for CMake configuration).
+After CMake processes it, it becomes `ffmpeg-download.ps1`.
+you can consider it that the origin file `ffmpeg-download.ps1.in` are injected with the real `ULR`, `filename` and `ExpectedHash`, and formated its modification from `ps1.in` to `ps1`,after CMake procession. Afterwards, the new `ffmpeg-download.ps1` can really implement the run as a PowerShell script, and then run these commands as follows.
+```Mermaid
+graph LR
+A[CMake 配置] --> B[生成 ffmpeg-download.ps1]
+B --> C[构建时运行 PowerShell 脚本]
+C --> D[从 GitHub 下载 DLL]
+D --> E[校验哈希]
+E --> F[复制到输出目录]
+```
+finally, you can attain this file `opencv_ffmpeg410_64.dll`.
+- `opencv`: means it belongs to the OpenCV library;
+- `ffmpeg`: means that it integrates the core functions of FFmpeg;
+- `410`: Corresponding to the version number of OpenCV (version 4.1.0);
+- `64`: This means this is a version adapted to 64-bit Windows systems;
+- `.dll`: **Dynamic link library file suffix** under Windows system.
+
+#### `license.txt`
+It contains the license terms for the bundled FFmpeg binary
+FFmpeg is licensed under LGPL/GPL, so OpenCV must:
+- Distribute this license 
+- Ensure dynamic linking (which OpenCV does via DLL)
+- Allow users to replace the DLL (compliance with LGPL)
+
+#### `readme.txt`
+yeah~readme....
